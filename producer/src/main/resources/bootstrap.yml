@@ -1,0 +1,43 @@
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8001/eureka/
+
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+  application:
+    name: spring-cloud-producer
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+  cloud:
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+    config:
+      name: spring-cloud-producer #需要从github上读取的资源名称，注意没有yml后缀名
+      profile: dev   #本次访问的配置项
+      label: master   
+      uri: http://127.0.0.1:8888
+#      discovery:
+#        enabled: true
+#        service-id: spring-cloud-config-server
+---
+spring:
+  profiles: prod
+  application:
+    name: spring-cloud-producer
+  cloud:
+    config:
+      name: spring-cloud-producer #需要从github上读取的资源名称，注意没有yml后缀名
+      profile: prod   #本次访问的配置项
+      label: master   
+      uri: http://127.0.0.1:8888

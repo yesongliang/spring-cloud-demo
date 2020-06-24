@@ -1,0 +1,21 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: spring-cloud-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+zuul:
+  #访问网关路径的前缀（在映射路径的前面，一般用于区别开发的版本）
+  prefix: /api
+  #定义转发服务规则
+  routes:
+    #随意写的区分不同映射服务器的名称（只是区分不同的映射服务器）
+    api-producer:
+      #请求路径中含有api-hello,都会转发到hello-service服务
+      path: /producer/**   
+      #服务别名,zuul网关默认整合ribbon 自动实现负载均衡轮训效果
+      serviceId: spring-cloud-producer
+    

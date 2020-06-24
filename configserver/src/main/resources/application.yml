@@ -1,0 +1,28 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: spring-cloud-config-server  # 应用名称
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+  cloud:
+     config:
+        server:
+          git:
+            uri: https://github.com/yesongliang/learngit #配置文件所在仓库
+            username: I would not tell you.
+            password: I would not tell you.
+            default-label: master 
+            search-paths: config
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
