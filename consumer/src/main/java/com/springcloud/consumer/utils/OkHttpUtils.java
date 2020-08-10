@@ -247,7 +247,7 @@ public class OkHttpUtils {
 
 	// test
 	public static void main(String[] args) {
-		String url = "http://www.baidu.com";
+		String url = "https://www.12306.cn/mormhweb/";
 		System.out.println(httpGet(url));
 	}
 }
