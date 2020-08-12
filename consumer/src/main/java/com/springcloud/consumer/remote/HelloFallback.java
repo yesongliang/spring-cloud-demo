@@ -2,6 +2,12 @@ package com.springcloud.consumer.remote;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * hystrix
+ * 
+ * @author ysl
+ *
+ */
 @Component
 public class HelloFallback implements HelloRemote {
 

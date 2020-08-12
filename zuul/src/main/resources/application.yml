@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   application:
-    name: spring-cloud-zuul
+    name: zuul-gateway
 eureka:
   client:
     service-url:
@@ -13,9 +13,17 @@ zuul:
   #定义转发服务规则
   routes:
     #随意写的区分不同映射服务器的名称（只是区分不同的映射服务器）
-    api-producer:
+    producer:
       #请求路径中含有api-hello,都会转发到hello-service服务
       path: /producer/**   
       #服务别名,zuul网关默认整合ribbon 自动实现负载均衡轮训效果
-      serviceId: spring-cloud-producer
+      service-id: producer
+      strip-prefix: false
+    #随意写的区分不同映射服务器的名称（只是区分不同的映射服务器）
+    consumer:
+      #请求路径中含有api-hello,都会转发到hello-service服务
+      path: /consumer/**   
+      #服务别名,zuul网关默认整合ribbon 自动实现负载均衡轮训效果
+      service-id: consumer
+      strip-prefix: false
     

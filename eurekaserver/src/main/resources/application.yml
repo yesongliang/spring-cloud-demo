@@ -1,9 +1,10 @@
+#单节点
 spring:
   application:
-    name: spring-cloud-eureka-server
+    name: eureka-server
 eureka:
   instance:
-    appname: spring-cloud-eureka-server
+    hostname: localhost
   client:
     # eureka.client.registerWithEureka ：表示是否将自己注册到Eureka Server，默认为true。
     # 由于当前这个应用就是Eureka Server，故而设为false
@@ -12,6 +13,54 @@ eureka:
     # 不需要同步其他的Eureka Server节点的数据，故而设为false。
     fetch-registry: false
     service-url:
-       defaultZone: http://localhost:${server.port}/eureka/
+       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 server:
   port: 8001
+
+
+##多节点
+#---
+#spring:
+#  application:
+#    name: ad-eureka
+#  profiles: peer1
+#server:
+#  port: 8000
+#eureka:
+#  instance:
+#    hostname: peer1
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#       defaultZone: http://peer2:8001/eureka/,http://peer3:8002/eureka/
+#---
+#spring:
+#  application:
+#    name: ad-eureka
+#  profiles: peer2
+#server:
+#  port: 8001
+#eureka:
+#  instance:
+#    hostname: peer2
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#       defaultZone: http://peer1:8000/eureka/,http://peer3:8002/eureka/
+#---
+#spring:
+#  application:
+#    name: ad-eureka
+#  profiles: peer3
+#server:
+#  port: 8002
+#eureka:
+#  instance:
+#    hostname: peer3
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#       defaultZone: http://peer1:8000/eureka/,http://peer2:8001/eureka/
+
+
+
