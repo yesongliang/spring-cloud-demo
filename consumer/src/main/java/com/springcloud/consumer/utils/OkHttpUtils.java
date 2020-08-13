@@ -165,7 +165,7 @@ public class OkHttpUtils {
 				log.info("postDataByForm; [postUrl={}, requestContent={}, responseCode={}]", url, content, response.code());
 				return response.body().string();
 			} else {
-				log.warn("Http Post Form请求失败,[url={}, param={}]", url, content);
+				log.warn("Http Post Form请求失败,[url={}, param={}, responseCode={}]", url, content, response.code());
 			}
 		} catch (IOException e) {
 			log.error("Http Post Form请求失败,[url={}, param={}]", url, content, e);
@@ -247,7 +247,7 @@ public class OkHttpUtils {
 
 	// test
 	public static void main(String[] args) {
-		String url = "https://www.12306.cn/mormhweb/";
-		System.out.println(httpGet(url));
+		String url = "http://127.0.0.1:8888/actuator/bus-refresh";
+		System.out.println(postDataByForm(url, "", null));
 	}
 }

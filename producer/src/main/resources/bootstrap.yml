@@ -1,34 +1,43 @@
 spring:
   profiles:
-    active: dev
-
----
-spring:
-  profiles: prod
-  application:
-    name: producer
-#  rabbitmq:
-#    host: 127.0.0.1
-#    port: 5672
-#    username: admin
-#    password: admin
-  cloud:
-#    bus:
-#      enabled: true
-#      trace:
-#        enabled: true
-    config:
-      name: producer #需要从github上读取的资源名称，注意没有yml后缀名
-      profile: dev   #本次访问的配置项
-      label: master   
-      uri: http://127.0.0.1:8888
-#      discovery:
-#        enabled: true
-#        service-id: spring-cloud-config-server
+    active: prod
 
 ---
 spring:
   profiles: dev
+  application:
+    name: producer
+  #接收config-server更新通知
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+  cloud:
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+    config:
+      name: producer #需要从github上读取的资源名称，注意没有yml后缀名
+      profile: dev   #本次访问的配置项
+      label: master   
+#      uri: http://127.0.0.1:8888
+      discovery:
+        enabled: true
+        service-id: config-server
+server:
+  port: 8099
+  servlet:
+    context-path: /producer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+
+---
+spring:
+  profiles: prod
   application:
     name: producer
 server:
@@ -41,7 +50,7 @@ eureka:
       defaultZone: http://localhost:8001/eureka/
       
 #测试
-foo: hello world
+foo: from local
       
       
       

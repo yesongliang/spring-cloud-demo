@@ -3,18 +3,19 @@ server:
 spring:
   application:
     name: config-server  # 应用名称
-#  rabbitmq:
-#    host: 127.0.0.1
-#    port: 5672
-#    username: admin
-#    password: admin
+  #调用post请求接口/actuator/bus-refresh,实现config客户端更新配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
   cloud:
      config:
         server:
           git:
             uri: https://github.com/yesongliang/learngit #配置文件所在仓库
-            username: yesongliang
-            password: yesl15570351952
+            username: your name #仓库,用户名
+            password: your password #仓库,密码
             default-label: master 
             search-paths: config
 eureka:
@@ -26,3 +27,4 @@ management:
     web:
       exposure:
         include: "*"
+ 

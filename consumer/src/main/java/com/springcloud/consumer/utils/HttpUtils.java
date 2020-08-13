@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -232,13 +233,8 @@ public final class HttpUtils {
 	 * @date 2019年3月27日
 	 */
 	public static void main(String[] args) {
-//		String url = "http://www.baidu.com";
-//		// http
-//		System.out.println(httpGet(url, false));
-
-		// https
-		String urls = "https://www.12306.cn/mormhweb/";
-		System.out.println(httpGet(urls, true));
+		String url = "http://127.0.0.1:8888/actuator/bus-refresh";
+		System.out.println(httpPostByForm(url, new HashMap<>(), false));
 	}
 
 }
