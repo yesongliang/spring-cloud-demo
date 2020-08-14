@@ -32,6 +32,13 @@
 		</dependency>
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-actuator</artifactId> 
 			</dependency> -->
+
+		<!-- binlog 监听与解析: https://github.com/shyiko/mysql-binlog-connector-java -->
+		<dependency>
+			<groupId>com.github.shyiko</groupId>
+			<artifactId>mysql-binlog-connector-java</artifactId>
+			<version>0.21.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
