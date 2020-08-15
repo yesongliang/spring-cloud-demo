@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.springcloud.consumer.remote.HelloRemote;
 import com.springcloud.consumer.service.HelloService;
 
@@ -25,10 +26,15 @@ public class HelloController {
 		return helloRemote.hello(name);
 	}
 
+	@HystrixCommand(fallbackMethod = "ribbonFallback")
 	@GetMapping("/ribbon/hello/{name}")
 	public String ribbon(@PathVariable("name") String name) {
 		log.info("consumer controller ribbon-----name={}", name);
 		return helloService.hello(name);
+	}
+
+	public String ribbonFallback(String name) {
+		return "server is down";
 	}
 
 }

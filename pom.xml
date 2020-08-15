@@ -41,6 +41,8 @@
 		</dependency>
 	</dependencies>
 
+	<!-- Spring Cloud的命名没有按照版本方式管理，是采用命名方式， 版本名称采用伦敦地铁站的名称命名，根据字母表的顺序对应版本时间顺序， 
+		比如最早的Release版本号为Angel，第二个Release版本为Brixton -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -59,5 +61,6 @@
 		<module>consumer</module>
 		<module>zuul</module>
 		<module>configserver</module>
+		<module>dashboard</module>
 	</modules>
 </project>

@@ -40,6 +40,11 @@ spring:
   profiles: prod
   application:
     name: producer
+  cloud:
+    bus:
+      enabled: false
+    config:
+      enabled: false
 server:
   port: 7000
   servlet:

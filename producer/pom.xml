@@ -30,14 +30,22 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-actuator</artifactId> 
-			</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 		<!-- binlog 监听与解析: https://github.com/shyiko/mysql-binlog-connector-java -->
 		<dependency>
 			<groupId>com.github.shyiko</groupId>
 			<artifactId>mysql-binlog-connector-java</artifactId>
 			<version>0.21.0</version>
+		</dependency>
+
+		<!--kafka 依赖 -->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
 		</dependency>
 	</dependencies>
 
