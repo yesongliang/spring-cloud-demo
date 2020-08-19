@@ -38,6 +38,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
 			<!-- Hystrix Monitor Stream 页面js报错，暂未解决 -->
+			<!-- https://blog.csdn.net/oyc619491800/article/details/107420176 文章后述方法无效 -->
 		</dependency>
 		<!-- 监控端点, 采集应用指标 -->
 		<dependency>

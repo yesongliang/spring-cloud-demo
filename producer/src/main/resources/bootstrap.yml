@@ -54,9 +54,14 @@ eureka:
     service-url:
       defaultZone: http://localhost:8001/eureka/
       
-#测试
+#自定义信息,测试
 foo: from local
-      
+#pom.xml中定义的信息
+app:
+  version: @project.version@
+  build:
+#    time: @timestamp@
+     time: @build.time@
       
       
       

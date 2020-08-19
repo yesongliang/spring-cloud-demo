@@ -16,9 +16,22 @@ public class HelloController {
 	@Value("${foo}")
 	private String value;
 
+	@Value("${app.version}")
+	private String version;
+
+	@Value("${app.build.time}")
+	private String buildTime;
+
 	@GetMapping("/hello/{name}")
 	public String index(@PathVariable String name) {
 		log.info("producer controller-----name={}", name);
 		return value + "!" + name;
 	}
+
+	@GetMapping("/version")
+	public String getVersion() {
+		log.info("producer controller-----getVersion");
+		return version + "_" + buildTime;
+	}
+
 }

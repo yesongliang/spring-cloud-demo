@@ -11,6 +11,13 @@
 	<artifactId>producer</artifactId>
 	<name>producer</name>
 	<description>demo project for spring boot</description>
+	<properties>
+		<!-- 在Maven 3.2.2+中， maven.build.timestamp已被重新定义，显示UTC中的时间,比中国时间慢8个小时。可以使用插件build-helper-maven-plugin获得本时区的时间 -->
+		<!--maven.build.timestamp保存了maven编译时间戳 -->
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<!--指定时间格式 -->
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -47,13 +54,45 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
+
+		<!-- 安全管理框架 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<!-- 用Maven属性渲染application.yml -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- 获取编译时间插件 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>timestamp-property</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<configuration>
+							<name>build.time</name>
+							<pattern>yyyy-MM-dd HH:mm:ss</pattern>
+							<locale>zh_CN</locale>
+							<timeZone>GMT+8</timeZone>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
