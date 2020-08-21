@@ -15,6 +15,8 @@ import com.github.shyiko.mysql.binlog.event.QueryEventData;
 import com.github.shyiko.mysql.binlog.event.TableMapEventData;
 import com.github.shyiko.mysql.binlog.event.UpdateRowsEventData;
 import com.github.shyiko.mysql.binlog.event.WriteRowsEventData;
+import com.springcloud.producer.mysqlBinlog.handlers.BinLogData;
+import com.springcloud.producer.mysqlBinlog.handlers.Ihandler;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +46,12 @@ public class MysqlEventListener implements EventListener {
 	private List<Map<Integer, String>> rowData;
 	/** BinLog数据:column字段->column值 **/
 	private Map<String, String> statementData;
+	/** 注册的解析处理器 **/
+	private Map<String, Ihandler> registerMap = new HashMap<>();
+
+	public void register(String key, Ihandler handler) {
+		registerMap.put(key, handler);
+	}
 
 	/**
 	 * 本地测试，BinLog格式为mixed
@@ -271,10 +279,12 @@ public class MysqlEventListener implements EventListener {
 
 	private void handle() {
 		if (this.operateType != null) {
-			if ("STATEMENT".equals(this.logFormat)) {
-				log.info("database: {},table: {},operateType: {},logFormat: {},statementData: {}", this.database, this.table, this.operateType, this.logFormat, this.statementData);
-			} else if ("ROW".equals(this.logFormat)) {
-				log.info("database: {},table: {},operateType: {},logFormat: {},rowData: {}", this.database, this.table, this.operateType, this.logFormat, this.rowData);
+			// TODO 1、筛选感兴趣的数据库和表
+			// TODO 2、做一些转换操作，可将BinLog格式:STATEMENT/ROW的数据统一格式处理
+			BinLogData data = new BinLogData(this.database, this.table, this.operateType, this.logFormat, this.rowData, this.statementData);
+			for (Map.Entry<String, Ihandler> entry : this.registerMap.entrySet()) {
+				Ihandler handler = entry.getValue();
+				handler.handle(data);
 			}
 			this.clear();
 		}

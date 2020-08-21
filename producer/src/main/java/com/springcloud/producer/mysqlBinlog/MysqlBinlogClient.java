@@ -3,9 +3,15 @@ package com.springcloud.producer.mysqlBinlog;
 import java.io.IOException;
 
 import com.github.shyiko.mysql.binlog.BinaryLogClient;
+import com.springcloud.producer.mysqlBinlog.handlers.Ihandler;
+import com.springcloud.producer.mysqlBinlog.handlers.impl.LocalHandlerImpl;
 import com.springcloud.producer.mysqlBinlog.listener.MysqlEventListener;
 
 public class MysqlBinlogClient {
+
+//	@Resource("localHandler")
+//	private Ihandler handler;
+
 	public static void main(String[] args) throws IOException {
 
 //		 mysql version:mysql Ver 14.14 Distrib 5.7.30, for Linux (x86_64) usingEditLine wrapper
@@ -22,7 +28,10 @@ public class MysqlBinlogClient {
 //		binaryLogClient.setBinlogFilename(binlogFilename);
 //		// 指定BinLog文件开始位置
 //		binaryLogClient.setBinlogPosition(binlogPosition);
-		binaryLogClient.registerEventListener(new MysqlEventListener());
+		Ihandler handler = new LocalHandlerImpl();
+		MysqlEventListener mysqlEventListener = new MysqlEventListener();
+		mysqlEventListener.register("localHandler", handler);
+		binaryLogClient.registerEventListener(mysqlEventListener);
 		binaryLogClient.connect();
 
 	}
